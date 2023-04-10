@@ -41,7 +41,7 @@ final class NewsTableViewCell: UITableViewCell {
 //        return label
 //    }()
     
-    private let newsImageView: UIImageView = {
+    let newsImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
@@ -55,6 +55,7 @@ final class NewsTableViewCell: UITableViewCell {
         contentView.addSubview(descriptionLabel)
 //        contentView.addSubview(showUrlLabel)
         contentView.addSubview(newsImageView)
+        setupConstraints()
     }
     
     required init?(coder: NSCoder) {
@@ -99,11 +100,19 @@ final class NewsTableViewCell: UITableViewCell {
         loadImage(from: imageUrl)
     }
     
-//    override func prepareForReuse() {
-//        super.prepareForReuse()
-//        newsImageView.image = nil
-//        titleLabel.text = nil
-//        descriptionLabel.text = nil
-//    }
+    func configureImage(forTitle title: String) {
+        APICaller.shared.fetchImageURL(forTitle: title) { [weak self] url in
+            if let url = url {
+                self?.loadImage(from: url)
+            }
+        }
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        newsImageView.image = nil
+        titleLabel.text = nil
+        descriptionLabel.text = nil
+    }
     
 }

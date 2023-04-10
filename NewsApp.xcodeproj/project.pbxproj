@@ -12,6 +12,9 @@
 		652C91BE29E1D655009C5D21 /* NewsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652C91BD29E1D655009C5D21 /* NewsViewModel.swift */; };
 		652C91C029E22317009C5D21 /* NewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652C91BF29E22317009C5D21 /* NewsTableViewCell.swift */; };
 		652C91C329E26004009C5D21 /* NewsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652C91C229E26004009C5D21 /* NewsService.swift */; };
+		652C91C529E39BD8009C5D21 /* GoogleSearchData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652C91C429E39BD8009C5D21 /* GoogleSearchData.swift */; };
+		652C91C829E39F06009C5D21 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 652C91C729E39F06009C5D21 /* SDWebImage */; };
+		652C91CA29E39F06009C5D21 /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 652C91C929E39F06009C5D21 /* SDWebImageMapKit */; };
 		658DAD9C29DDECA0000E44AA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658DAD9B29DDECA0000E44AA /* AppDelegate.swift */; };
 		658DAD9E29DDECA0000E44AA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658DAD9D29DDECA0000E44AA /* SceneDelegate.swift */; };
 		658DADA029DDECA0000E44AA /* NewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658DAD9F29DDECA0000E44AA /* NewsViewController.swift */; };
@@ -46,6 +49,7 @@
 		652C91BD29E1D655009C5D21 /* NewsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewModel.swift; sourceTree = "<group>"; };
 		652C91BF29E22317009C5D21 /* NewsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableViewCell.swift; sourceTree = "<group>"; };
 		652C91C229E26004009C5D21 /* NewsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsService.swift; sourceTree = "<group>"; };
+		652C91C429E39BD8009C5D21 /* GoogleSearchData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSearchData.swift; sourceTree = "<group>"; };
 		658DAD9829DDECA0000E44AA /* NewsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		658DAD9B29DDECA0000E44AA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		658DAD9D29DDECA0000E44AA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -67,6 +71,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				652C91C829E39F06009C5D21 /* SDWebImage in Frameworks */,
+				652C91CA29E39F06009C5D21 /* SDWebImageMapKit in Frameworks */,
 				652C91B829E0F248009C5D21 /* SwiftSoup in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -92,6 +98,7 @@
 			isa = PBXGroup;
 			children = (
 				652C91BA29E1D5D5009C5D21 /* NewsData.swift */,
+				652C91C429E39BD8009C5D21 /* GoogleSearchData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -194,6 +201,8 @@
 			name = NewsApp;
 			packageProductDependencies = (
 				652C91B729E0F248009C5D21 /* SwiftSoup */,
+				652C91C729E39F06009C5D21 /* SDWebImage */,
+				652C91C929E39F06009C5D21 /* SDWebImageMapKit */,
 			);
 			productName = NewsApp;
 			productReference = 658DAD9829DDECA0000E44AA /* NewsApp.app */;
@@ -269,6 +278,7 @@
 			mainGroup = 658DAD8F29DDECA0000E44AA;
 			packageReferences = (
 				652C91B629E0F248009C5D21 /* XCRemoteSwiftPackageReference "SwiftSoup" */,
+				652C91C629E39F06009C5D21 /* XCRemoteSwiftPackageReference "SDWebImage" */,
 			);
 			productRefGroup = 658DAD9929DDECA0000E44AA /* Products */;
 			projectDirPath = "";
@@ -312,6 +322,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				652C91C529E39BD8009C5D21 /* GoogleSearchData.swift in Sources */,
 				658DADA029DDECA0000E44AA /* NewsViewController.swift in Sources */,
 				658DAD9C29DDECA0000E44AA /* AppDelegate.swift in Sources */,
 				652C91C029E22317009C5D21 /* NewsTableViewCell.swift in Sources */,
@@ -664,6 +675,14 @@
 				minimumVersion = 2.0.0;
 			};
 		};
+		652C91C629E39F06009C5D21 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -671,6 +690,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 652C91B629E0F248009C5D21 /* XCRemoteSwiftPackageReference "SwiftSoup" */;
 			productName = SwiftSoup;
+		};
+		652C91C729E39F06009C5D21 /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 652C91C629E39F06009C5D21 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
+		652C91C929E39F06009C5D21 /* SDWebImageMapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 652C91C629E39F06009C5D21 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImageMapKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

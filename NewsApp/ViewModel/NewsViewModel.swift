@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftSoup
 
 
 protocol NewsViewModelProtocol: AnyObject {
@@ -28,17 +29,35 @@ final class NewsViewModel: NewsViewModelProtocol {
     }
 
     func fetchNews() {
-        newsService.fetchTopHeadlines { [weak self] newsItems in
-            self?.newsItems = newsItems
-            self?.onDataUpdate?()
+        self.newsService.fetchTopHeadlines { [weak self] newsItems in
+            guard let self = self else { return }
+            let dispatchGroup = DispatchGroup()
+            for var news in newsItems {
+                dispatchGroup.enter()
+                self.newsService.shortDescription(for: news, maxLength: 100) { shortDescription in
+                    news.shortDescription = shortDescription
+                    self.newsItems.append(news)
+                    dispatchGroup.leave()
+                }
+            }
+            dispatchGroup.notify(queue: .main) {
+                self.onDataUpdate?()
+            }
         }
     }
     
     func numberOfItems() -> Int {
         return newsItems.count
     }
-
+    
     func item(at index: Int) -> NewsData {
-        return newsItems[index]
+        var news = newsItems[index]
+        newsService.shortDescription(for: news, maxLength: 100) { [weak self] shortDescription in
+            news.shortDescription = shortDescription
+            self?.onDataUpdate?()
+        }
+        return news
     }
+    
+    
 }

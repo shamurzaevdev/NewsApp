@@ -6,26 +6,25 @@
 //
 
 import UIKit
+import SDWebImage
 
 /// This is the main News Page where the customers can scroll the news and select the interesting one
 final class NewsViewController: UIViewController {
     
-    private var viewModel: NewsViewModelProtocol?
+//    private var viewModel: NewsViewModelProtocol?
     private let tableView = UITableView()
+    private var viewModel: NewsViewModelProtocol? = NewsViewModel(newsService: NewsService())
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
-        updateModel()
-    }
-    
-    private func updateModel() {
-        
     }
     
     private func setupTableView() {
         view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.delegate = self
+        tableView.dataSource = self
         
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -62,13 +61,25 @@ extension NewsViewController: UITableViewDataSource {
             fatalError("Failed to dequeue NewsTableViewCell")
         }
         guard let news = viewModel?.newsItems[indexPath.row] else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "NewsTableViewCell", for: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: NewsTableViewCell.identifier, for: indexPath)
                 cell.textLabel?.text = "Nothing" 
                 return cell
 }
         cell.configure(with: news)
+        
+        let query = news.title
+        APICaller.shared.fetchImageURL(forTitle: query) { imageURL in
+            guard let imageURL = imageURL, let url = URL(string: imageURL.absoluteString) else {
+                return
+            }
+            DispatchQueue.main.async {
+                cell.newsImageView.sd_setImage(with: url, completed: nil)
+            }
+        }
         return cell
     }
     
-    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        350
+    }
 }

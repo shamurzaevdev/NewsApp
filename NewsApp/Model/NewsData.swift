@@ -15,5 +15,15 @@ struct NewsData: Decodable {
     let title: String
     let description: String?
     let urlToImage: URL?
-    let url: URL
+    let url: URL?
+    var shortDescription: String?
+}
+
+struct ShortDescriptionResponse: Decodable {
+    let items: [ShortDescriptionItem]
+}
+
+struct ShortDescriptionItem: Decodable {
+    let description: String
+    let url: String
 }
