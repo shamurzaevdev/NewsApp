@@ -32,14 +32,6 @@ final class NewsTableViewCell: UITableViewCell {
         return label
     }()
     
-//    private let showUrlLabel: UILabel = {
-//        let label = UILabel()
-//        label.translatesAutoresizingMaskIntoConstraints = false
-//        label.numberOfLines = 0
-//        label.font = UIFont.boldSystemFont(ofSize: 12)
-//        label.textColor = .systemBlue
-//        return label
-//    }()
     
     let newsImageView: UIImageView = {
         let imageView = UIImageView()
@@ -53,7 +45,6 @@ final class NewsTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.addSubview(titleLabel)
         contentView.addSubview(descriptionLabel)
-//        contentView.addSubview(showUrlLabel)
         contentView.addSubview(newsImageView)
         setupConstraints()
     }
@@ -80,7 +71,8 @@ final class NewsTableViewCell: UITableViewCell {
         ])
     }
     
-    private func loadImage(from url: URL) {
+    private func loadImage(from url: String) {
+        guard let url = URL(string: url) else { return }
         currentTask?.cancel()
         currentTask = URLSession.shared.dataTask(with: url) { [weak self] data, _, _ in
             if let data = data, let image = UIImage(data: data) {
@@ -98,14 +90,6 @@ final class NewsTableViewCell: UITableViewCell {
         
         guard let imageUrl = newsData.urlToImage else { return }
         loadImage(from: imageUrl)
-    }
-    
-    func configureImage(forTitle title: String) {
-        APICaller.shared.fetchImageURL(forTitle: title) { [weak self] url in
-            if let url = url {
-                self?.loadImage(from: url)
-            }
-        }
     }
     
     override func prepareForReuse() {

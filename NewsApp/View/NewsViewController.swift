@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import SDWebImage
 
 /// This is the main News Page where the customers can scroll the news and select the interesting one
 final class NewsViewController: UIViewController {
@@ -44,13 +43,18 @@ final class NewsViewController: UIViewController {
 }
 
     // MARK: UITableViewDelegate
-
 extension NewsViewController: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+            guard let selectedNews = viewModel?.item(at: indexPath.row) else { return }
+            
+            let detailsViewController = DetailsViewController()
+            detailsViewController.news = selectedNews
+            
+            navigationController?.pushViewController(detailsViewController, animated: true)
+        }
 }
 
     // MARK: UITableViewDataSource
-
 extension NewsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         viewModel?.numberOfItems() ?? 0
@@ -62,20 +66,11 @@ extension NewsViewController: UITableViewDataSource {
         }
         guard let news = viewModel?.newsItems[indexPath.row] else {
             let cell = tableView.dequeueReusableCell(withIdentifier: NewsTableViewCell.identifier, for: indexPath)
-                cell.textLabel?.text = "Nothing" 
-                return cell
-}
-        cell.configure(with: news)
-        
-        let query = news.title
-        APICaller.shared.fetchImageURL(forTitle: query) { imageURL in
-            guard let imageURL = imageURL, let url = URL(string: imageURL.absoluteString) else {
-                return
-            }
-            DispatchQueue.main.async {
-                cell.newsImageView.sd_setImage(with: url, completed: nil)
-            }
+            cell.textLabel?.text = "Nothing"
+            return cell
         }
+        cell.configure(with: news)
+
         return cell
     }
     

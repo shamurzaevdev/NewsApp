@@ -13,17 +13,7 @@ struct NewsResponse: Decodable {
 
 struct NewsData: Decodable {
     let title: String
-    let description: String?
-    let urlToImage: URL?
-    let url: URL?
-    var shortDescription: String?
-}
-
-struct ShortDescriptionResponse: Decodable {
-    let items: [ShortDescriptionItem]
-}
-
-struct ShortDescriptionItem: Decodable {
-    let description: String
-    let url: String
+    var description: String?
+    let urlToImage: String?
+    let url: String?
 }

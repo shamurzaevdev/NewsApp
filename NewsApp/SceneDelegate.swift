@@ -11,14 +11,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
+        func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+            guard let windowScene = (scene as? UIWindowScene) else { return }
 
-    func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        
-        window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = NewsViewController()
-        window?.makeKeyAndVisible()
-        guard let windowScene = (scene as? UIWindowScene) else { return }
-        window?.windowScene = windowScene
+            let newsViewController = NewsViewController()
+            let navigationController = UINavigationController(rootViewController: newsViewController)
+
+            window = UIWindow(windowScene: windowScene)
+            window?.rootViewController = navigationController
+            window?.makeKeyAndVisible()
     }
 
     
