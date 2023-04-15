@@ -10,20 +10,25 @@ import Foundation
 protocol NewsViewModelProtocol: AnyObject {
     var onDataUpdate: (() -> Void)? { get set }
     var newsItems: [NewsData] { get }
+    var router: RouterProtocol { get set }
     func numberOfItems() -> Int
     func fetchNews()
     func item(at index: Int) -> NewsData
+    func pushToDetailsViewControoler(indexPath: Int)
 }
 
 final class NewsViewModel: NewsViewModelProtocol {
     
     private let newsService: NewsService
     private(set) var newsItems: [NewsData] = []
+    var router: RouterProtocol
+    
     
     var onDataUpdate: (() -> Void)?
     
-    init(newsService: NewsService) {
+    init(newsService: NewsService, router: RouterProtocol) {
         self.newsService = newsService
+        self.router = router
     }
 
     func fetchNews() {
@@ -42,6 +47,10 @@ final class NewsViewModel: NewsViewModelProtocol {
     
     func item(at index: Int) -> NewsData {
         return newsItems[index]
+    }
+    
+    func pushToDetailsViewControoler(indexPath: Int) {
+        router.pushDetailsViewContoller(model: newsItems[indexPath])
     }
     
     

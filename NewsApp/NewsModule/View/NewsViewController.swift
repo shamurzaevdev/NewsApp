@@ -12,7 +12,7 @@ final class NewsViewController: UIViewController {
     
 //    private var viewModel: NewsViewModelProtocol?
     private let tableView = UITableView()
-    private var viewModel: NewsViewModelProtocol? = NewsViewModel(newsService: NewsService())
+    var viewModel: NewsViewModelProtocol?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,12 +45,7 @@ final class NewsViewController: UIViewController {
     // MARK: UITableViewDelegate
 extension NewsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-            guard let selectedNews = viewModel?.item(at: indexPath.row) else { return }
-            
-            let detailsViewController = DetailsViewController()
-            detailsViewController.news = selectedNews
-            
-            navigationController?.pushViewController(detailsViewController, animated: true)
+        viewModel?.pushToDetailsViewControoler(indexPath: indexPath.row)
         }
 }
 
