@@ -8,20 +8,20 @@
 import Foundation
 import UIKit
 
-protocol RouterProtocol {
-    func initialController()
-    func pushDetailsViewContoller(model: NewsData)
-}
-
+/// A class that implements the `RouterProtocol` for managing navigation in the application.
 class Router: RouterProtocol {
+    
+    // MARK: - Properties
     var navController: UINavigationController?
     var builder: BuilderProtocol
     
+    // MARK: - Initialization
     init(navController: UINavigationController, builder: BuilderProtocol) {
         self.navController = navController
         self.builder = builder
     }
     
+    // MARK: - RouterProtocol Implementation
     func initialController() {
         if let navController = navController {
             let newsController = builder.makeNewsViewController(router: self)

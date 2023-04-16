@@ -10,14 +10,20 @@ import UIKit
 /// This is the main News Page where the customers can scroll the news and select the interesting one
 final class NewsViewController: UIViewController {
     
-//    private var viewModel: NewsViewModelProtocol?
+    // MARK: - Properties
+    
     private let tableView = UITableView()
     var viewModel: NewsViewModelProtocol?
+    
+    // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
+        viewModel?.fetchNews()
     }
+    
+    // MARK: - Setup UI
     
     private func setupTableView() {
         view.addSubview(tableView)
@@ -38,7 +44,6 @@ final class NewsViewController: UIViewController {
                 self?.tableView.reloadData()
             }
         }
-        viewModel?.fetchNews()
     }
 }
 

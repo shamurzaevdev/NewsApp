@@ -18,10 +18,13 @@ enum APIError: Error {
     case failedToGetData
 }
 
+/// A singleton class that fetches top headlines from the News API.
 final class APICaller {
     
+    // MARK: - Properties
     static let shared = APICaller()
     
+    // MARK: - API Calls
     func getTopHeadlines(completion: @escaping (Result<[NewsData], Error>) -> Void) {
         guard let url = URL(string: "\(Constants.baseURL)/?country=us&apiKey=\(Constants.API_KEY)") else { return }
         let task = URLSession.shared.dataTask(with: URLRequest(url: url)) { data, _, error in
@@ -31,7 +34,6 @@ final class APICaller {
             
             do {
                 let results = try JSONDecoder().decode(NewsResponse.self, from: data)
-                print("Articles: \(results.articles)")
                 completion(.success(results.articles))
             } catch {
                 completion(.failure(APIError.failedToGetData))

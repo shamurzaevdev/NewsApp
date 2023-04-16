@@ -7,30 +7,28 @@
 
 import Foundation
 
-protocol NewsViewModelProtocol: AnyObject {
-    var onDataUpdate: (() -> Void)? { get set }
-    var newsItems: [NewsData] { get }
-    var router: RouterProtocol { get set }
-    func numberOfItems() -> Int
-    func fetchNews()
-    func item(at index: Int) -> NewsData
-    func pushToDetailsViewControoler(indexPath: Int)
-}
-
+/// A view model responsible for managing the news data and interacting with the news service.
 final class NewsViewModel: NewsViewModelProtocol {
     
-    private let newsService: NewsService
-    private(set) var newsItems: [NewsData] = []
+    // MARK: - Private Properties
+    
+    private let newsService: NewsServiceProtocol
+    
+    // MARK: - Properties
+    
+    var newsItems: [NewsData] = []
     var router: RouterProtocol
-    
-    
     var onDataUpdate: (() -> Void)?
     
-    init(newsService: NewsService, router: RouterProtocol) {
+    // MARK: - Initialization
+    
+    init(newsService: NewsServiceProtocol, router: RouterProtocol) {
         self.newsService = newsService
         self.router = router
     }
 
+    // MARK: - Methods
+    
     func fetchNews() {
         self.newsService.fetchTopHeadlines { [weak self] newsItems in
             guard let self = self else { return }
@@ -52,6 +50,4 @@ final class NewsViewModel: NewsViewModelProtocol {
     func pushToDetailsViewControoler(indexPath: Int) {
         router.pushDetailsViewContoller(model: newsItems[indexPath])
     }
-    
-    
 }

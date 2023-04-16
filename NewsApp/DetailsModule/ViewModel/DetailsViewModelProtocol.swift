@@ -6,3 +6,8 @@
 //
 
 import Foundation
+
+/// A protocol that defines the requirements for a view model that provides data for the details view.
+protocol DetailsViewModelProtocol {
+    var detailsData: DetailsData { get }
+}

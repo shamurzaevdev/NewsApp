@@ -5,31 +5,61 @@
 //  Created by Эл on 13.04.2023.
 //
 
+
+
 import XCTest
+@testable import NewsApp
 
-class NewsViewModelTest: XCTestCase {
+class NewsServiceMock: NewsServiceProtocol {
+    
+    func fetchTopHeadlines(completion: @escaping ([NewsData]) -> Void) {
+        completion([NewsData(title: "Baz", description: "Bar", urlToImage: "Foo", url: "https://testurl.com/article")])
+    }
+}
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+class RouterMock: RouterProtocol {
+    
+    func initialController() { }
+    func pushDetailsViewContoller(model: NewsData) { }
+}
+
+class NewsViewModelTests: XCTestCase {
+    
+    private var viewModel: NewsViewModel!
+    private var newsServiceMock: NewsServiceProtocol!
+    private var routerMock: RouterProtocol!
+
+    override func setUp() {
+        super.setUp()
+        newsServiceMock = NewsServiceMock()
+        routerMock = RouterMock()
+        viewModel = NewsViewModel(newsService: newsServiceMock, router: routerMock)
     }
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    override func tearDown() {
+        viewModel = nil
+        newsServiceMock = nil
+        routerMock = nil
+        super.tearDown()
     }
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
+    func testFetchNews() {
+        viewModel.fetchNews()
+        XCTAssertEqual(viewModel.newsItems.count, 1)
+        XCTAssertEqual(viewModel.newsItems[0].title, "Baz")
     }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+    
+    func testNumberOfItems() {
+        viewModel.fetchNews()
+        XCTAssertEqual(viewModel.numberOfItems(), 1)
+    }
+    
+    func testItemAtIndex() {
+        viewModel.fetchNews()
+        let item = viewModel.item(at: 0)
+        XCTAssertEqual(item.title, "Baz")
     }
 
 }
+
+

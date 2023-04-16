@@ -7,8 +7,10 @@
 
 import UIKit
 
-///
+/// A custom table view cell for displaying news items.
 final class NewsTableViewCell: UITableViewCell {
+    
+    // MARK: - Static Properties
     
     static let identifier = "NewsTableViewCell"
     
@@ -32,14 +34,15 @@ final class NewsTableViewCell: UITableViewCell {
         return label
     }()
     
-    
-    let newsImageView: UIImageView = {
+    private let newsImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         return imageView
     }()
+    
+    // MARK: - Initialization
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -49,9 +52,12 @@ final class NewsTableViewCell: UITableViewCell {
         setupConstraints()
     }
     
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    // MARK: - Private methods
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
@@ -84,13 +90,17 @@ final class NewsTableViewCell: UITableViewCell {
         currentTask?.resume()
     }
     
+    // MARK: - Configuration
+    
     func configure(with newsData: NewsData) {
         titleLabel.text = newsData.title
         descriptionLabel.text = newsData.description
         
-        guard let imageUrl = newsData.urlToImage else { return }
+        let imageUrl = newsData.urlToImage ?? ""
         loadImage(from: imageUrl)
     }
+    
+    // MARK: - Reuse
     
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -98,5 +108,4 @@ final class NewsTableViewCell: UITableViewCell {
         titleLabel.text = nil
         descriptionLabel.text = nil
     }
-    
 }

@@ -8,11 +8,7 @@
 import Foundation
 import UIKit
 
-protocol BuilderProtocol {
-    func makeNewsViewController(router: RouterProtocol) -> UIViewController
-    func makeDetailsViewController(router: RouterProtocol, model: NewsData) -> UIViewController
-}
-
+/// A class that implements the `BuilderProtocol` for creating view controllers.
 class Builder: BuilderProtocol {
     func makeNewsViewController(router: RouterProtocol) -> UIViewController {
         let view = NewsViewController()
@@ -23,9 +19,8 @@ class Builder: BuilderProtocol {
     }
     
     func makeDetailsViewController(router: RouterProtocol, model: NewsData) -> UIViewController {
-        let view = DetailsViewController()
+        let viewModel = DetailsViewModel(newsData: model)
+        let view = DetailsViewController(viewModel: viewModel)
         return view
     }
-    
-    
 }
