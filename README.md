@@ -3,8 +3,11 @@
 ## Description
 NewsApp est une application pour afficher les dernières nouvelles à partir de l'API https://newsapi.org/. J'ai utilisé l'architecture MVVM, ainsi que les outils Builder et Router. Les nouvelles sont affichées dans un TableView, où l'utilisateur peut choisir une nouvelle particulière et accéder à une vue détaillée de la nouvelle, avec une image et un bouton "Read More", qui redirige vers la page web de la nouvelle en utilisant l'URL correspondante.
 
-![MainScreen](https://user-images.githubusercontent.com/59398652/232482560-a1e79c51-f90b-4565-af3c-ebe094ff7284.png)
-![DetailScreen](https://user-images.githubusercontent.com/59398652/232482578-2a3bb9d0-4da5-47ed-b293-eef060522e98.png)
+![Simulator Screen Shot - iPhone 13 Pro Max - 2023-04-17 at 14 42 19](https://user-images.githubusercontent.com/59398652/232487515-69b2be19-579a-4a33-ad5b-d63c0cd96362.png)
+![Simulator Screen Shot - iPhone 13 Pro Max - 2023-04-17 at 14 42 28](https://user-images.githubusercontent.com/59398652/232487686-16a85365-02f5-44f5-a64c-c53f82205e57.png)
+
+[![VideoNewsApp](https://user-images.githubusercontent.com/59398652/232487515-69b2be19-579a-4a33-ad5b-d63c0cd96362.png)](https://user-images.githubusercontent.com/59398652/232487931-1f280c05-d7f4-4b8b-a527-1fac8e2d5c60.MP4
+)
 
 Des tests ont également été effectués avec succès pour couvrir les fonctionnalités principales et garantir que l'application fonctionne comme prévu. Le projet a pris environ 18-20 heures de travail pour être achevé.
 
