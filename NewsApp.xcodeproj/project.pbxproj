@@ -154,6 +154,8 @@
 		658DAD9A29DDECA0000E44AA /* NewsApp */ = {
 			isa = PBXGroup;
 			children = (
+				65CC2A6F29E7704F00DE4792 /* Builder */,
+				65CC2A7229E7769200DE4792 /* Router */,
 				658DADCE29DE73CA000E44AA /* Managers */,
 				65CC2A7329E81C7400DE4792 /* NewsModule */,
 				65CC2A7729E81D7700DE4792 /* DetailsModule */,
@@ -224,8 +226,6 @@
 		65CC2A7329E81C7400DE4792 /* NewsModule */ = {
 			isa = PBXGroup;
 			children = (
-				65CC2A7229E7769200DE4792 /* Router */,
-				65CC2A6F29E7704F00DE4792 /* Builder */,
 				65CC2A7429E81CEB00DE4792 /* Model */,
 				65CC2A7529E81CF500DE4792 /* View */,
 				65CC2A7629E81D1000DE4792 /* ViewModel */,
